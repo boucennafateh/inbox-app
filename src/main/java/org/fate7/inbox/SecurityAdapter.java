@@ -1,4 +1,4 @@
-package org.fate7;
+package org.fate7.inbox;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
