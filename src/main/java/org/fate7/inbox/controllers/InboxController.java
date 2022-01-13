@@ -3,6 +3,7 @@ package org.fate7.inbox.controllers;
 import lombok.RequiredArgsConstructor;
 import org.fate7.inbox.folders.Folder;
 import org.fate7.inbox.folders.FolderRepository;
+import org.fate7.inbox.folders.FolderService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.List;
 public class InboxController {
 
     private final FolderRepository folderRepository;
+    private final FolderService folderService;
 
     @GetMapping("/")
     public String homePage(@AuthenticationPrincipal OAuth2User principal, Model model){
@@ -24,7 +26,10 @@ public class InboxController {
             return "index";
         String login = principal.getAttribute("login");
         List<Folder> folders = folderRepository.findAllById(login);
-        model.addAttribute("folders", folders);
+        model.addAttribute("userFolders", folders);
+
+        List<Folder> defaultFolders = folderService.FetchDefaultFolders(login);
+        model.addAttribute("defaultFolders", defaultFolders);
         return "inbox-page";
     }
 
