@@ -6,6 +6,9 @@ target/
 .DS_Store
 .mvn/
 
+#### astra
+secure-connect.zip
+
 ### STS ###
 .apt_generated
 .classpath
